@@ -5,13 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>test</title>
+  <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
   <main>
     
   </main>
   <footer>
-    <input type="text">
+    <span class="name" contenteditable>游客</span>说
+    <input class="message" onkeydown='if(event.keyCode==13){ goSubmit();}' type="text" placeholder="要说的话">
     <button>发送</button>
   </footer>
 
@@ -23,7 +25,13 @@
     })
 
     document.querySelector('footer button').onclick = function() {
-      socket.emit('chat', 'black', document.querySelector('footer input').value);//向服务器发送消息
+      socket.emit('chat', document.querySelector('footer .name').innerText, document.querySelector('footer input').value);//向服务器发送消息
+      document.querySelector('footer input').value = '';
+    }
+
+    function goSubmit() {
+      socket.emit('chat', document.querySelector('footer .name').innerText, document.querySelector('footer input').value);//向服务器发送消息      
+      document.querySelector('footer input').value = '';
     }
 
     function showMsg(data) {
@@ -36,9 +44,17 @@
           }
         });
       }
-      var node = document.createElement('p');
-      node.innerText = data;
-      document.querySelector('main').appendChild(node);
+
+      var msgNode = document.createElement('div')
+      var childSpan = document.createElement('span')
+      var childText = document.createTextNode(data)
+      msgNode.appendChild(childSpan)
+      msgNode.appendChild(childText)
+      msgNode.classList.add('message')
+      setTimeout(function(){
+        msgNode.classList.add('normal')
+      }, 1000)
+      document.body.querySelector('main').appendChild(msgNode)
       console.log(data);
     }
   </script>

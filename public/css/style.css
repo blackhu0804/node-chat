@@ -1,0 +1,69 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+main {
+  margin-bottom: 40px;
+  padding: 20px;
+  line-height: 1.5;
+}
+
+main .message {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 80px;
+  transition: all .4s;
+}
+
+main .message.normal{
+  position: static;
+  transform: translate(0, 0);
+  font-size: 16px;
+  color: #666;
+}
+main .message>span {
+  display: none;
+  font-size: 12px;
+}
+
+main .message.normal>span {
+  display: inline;
+  margin-right: 10px;
+  color: #999;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 40px;
+  background-color: rgba(0, 0, 0, .6);
+  text-align: center;
+  color: #fff;
+  font-size: 12px;
+  padding-top: 5px;
+}
+
+footer input[type="text"] {
+  height: 30px;
+  padding: 5px;
+  border: none;
+  outline: none;
+  border-radius: 3px;
+}
+
+footer .name {
+  width: 30px;
+}
+
+footer .message {
+  width: 400px;
+}
