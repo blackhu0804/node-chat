@@ -19,17 +19,28 @@
   <script>
     var socket = io();
     socket.on('chat from server', function(data) {// 监听服务器发送的消息
-      var node = document.createElement('p');
-      node.innerText = data;
-      document.querySelector('main').appendChild(node);
-      console.log(data);
+      showMsg(data)
     })
 
     document.querySelector('footer button').onclick = function() {
       socket.emit('chat', 'black', document.querySelector('footer input').value);//向服务器发送消息
     }
 
-    
+    function showMsg(data) {
+      if(Notification.permission === 'granted') {
+        var notification = new Notification(data);
+      } else if(Notification.permission !== 'denied') {
+        Notification.requestPermission(function (permission) {
+          if(permission === 'granted') {
+            var notification = new Notification(data);
+          }
+        });
+      }
+      var node = document.createElement('p');
+      node.innerText = data;
+      document.querySelector('main').appendChild(node);
+      console.log(data);
+    }
   </script>
 </body>
 </html>
