@@ -13,25 +13,44 @@
   </main>
   <footer>
     <span class="name" contenteditable>游客</span>说
-    <input class="message" onkeydown='if(event.keyCode==13){ goSubmit();}' type="text" placeholder="要说的话">
-    <button>发送</button>
+    <input class="message" onkeydown='if(event.keyCode==13){ goSubmit();}' type="text" placeholder="要说的话,按Enter发送">
+    <!-- <button>发送</button> -->
   </footer>
 
   <script src="/socket.io/socket.io.js"></script>
   <script>
     var socket = io();
+
+    if(localStorage.name){
+      document.querySelector('footer .name').innerText = localStorage.name
+    }
+
     socket.on('chat from server', function(data) {// 监听服务器发送的消息
       showMsg(data)
     })
 
-    document.querySelector('footer button').onclick = function() {
-      socket.emit('chat', document.querySelector('footer .name').innerText, document.querySelector('footer input').value);//向服务器发送消息
-      document.querySelector('footer input').value = '';
-    }
+    // document.querySelector('footer button').onclick = function() {
+    //   socket.emit('chat', document.querySelector('footer .name').innerText, document.querySelector('footer input').value);//向服务器发送消息
+    //   document.querySelector('footer input').value = '';
+    // }
 
     function goSubmit() {
-      socket.emit('chat', document.querySelector('footer .name').innerText, document.querySelector('footer input').value);//向服务器发送消息      
-      document.querySelector('footer input').value = '';
+      if(document.querySelector('footer input').value === '') {
+        alert('请输入你要发言的内容')
+      }else {
+        socket.emit('chat', document.querySelector('footer .name').innerText, document.querySelector('footer input').value);//向服务器发送消息      
+        document.querySelector('footer input').value = '';
+      }
+    }
+
+    document.querySelector('footer .name').onblur = function(e){
+      console.log(this.value)
+      if(this.innerText == ''){
+        alert('名字不能为空')
+        this.innerText = localStorage.name || '游客'
+        return 
+      }
+      localStorage.name = this.innerText
     }
 
     function showMsg(data) {
