@@ -17,7 +17,12 @@
   </div>
 
   <main>
-    
+    <section class="ChatContent">
+
+    </section>
+    <section class="UsersList">
+      当前在线用户数目： <span class="userNum"></span>
+    </section>
   </main>
   <footer>
     <span class="name" contenteditable>游客</span>说
@@ -30,6 +35,11 @@
   <script>
     var socket = io();
 
+    socket.on('shuaxin', (nickName, userCount) => {
+      console.log(userCount)
+      document.querySelector('.userNum').textContent = userCount;
+    })
+
     if(localStorage.name){
       document.querySelector('footer .name').innerText = localStorage.name
     }
@@ -38,12 +48,14 @@
       showMsg(data)
     })
 
-    socket.on('conn', function(name) {
-      showMsg(name);
+    socket.on('conn', function(nickName, userCount) {
+      showMsg(nickName + ' 进入了聊天室 ');
+      appendSum(userCount);
     })
 
     socket.on('disconn', function(nickName, userCount) {
       showMsg(nickName + ' 离开了聊天室');
+      appendSum(userCount);
     })
 
     document.querySelector('#submitName').onclick = function() {
@@ -89,15 +101,25 @@
 
       var msgNode = document.createElement('div')
       var childSpan = document.createElement('span')
+      var date = document.createTextNode(`···················( ${new Date().toTimeString().substr(0, 8)} )` )
       var childText = document.createTextNode(data)
       msgNode.appendChild(childSpan)
       msgNode.appendChild(childText)
       msgNode.classList.add('message')
       setTimeout(function(){
         msgNode.classList.add('normal')
+        msgNode.appendChild(date)
       }, 1000)
-      document.body.querySelector('main').appendChild(msgNode)
+      document.body.querySelector('main > .ChatContent').appendChild(msgNode)
       console.log(data);
+    }
+
+    function appendSum(userCount) {
+      $('main > .UsersList > .userNum').empty();
+      var para = document.createElement('span');
+      var node = document.createTextNode(userCount);
+      para.appendChild(node);
+      document.querySelector('main > .UsersList > .userNum').appendChild(para);
     }
   </script>
 </body>

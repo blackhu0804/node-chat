@@ -9,11 +9,15 @@ var users = [];
 var APIKEY = 'aac8c08a883a4ba8ac09412ae01182ea';
 io.on('connection', function(socket){
   socket.on('conn', (name) => {
-    socket.broadcast.emit('conn', name + ' 进入了聊天室 ') 
     socket.nickname = name;
     users.push(name);
     console.log('当前在线用户' + users);
+    socket.broadcast.emit('conn', socket.nickname, users.length) 
+    io.sockets.emit('shuaxin',socket.nickname,users.length);
   })
+
+  io.sockets.emit('shuaxin',socket.nickname,users.length);
+
 
   socket.on('disconnect', function() {
     if(socket.nickname != null) {

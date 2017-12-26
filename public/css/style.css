@@ -75,8 +75,26 @@ main {
   overflow-y: auto;
   padding: 20px;
   line-height: 1.5;
+  display: flex;
+  
 }
-
+main > section {
+  height: 100%;
+  -webkit-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+main > .ChatContent {
+  width: 80%;
+  border: 1px solid #ccc;
+  border-radius: 9px 0 0 9px;
+  border-right: none;
+}
+main > .UsersList {
+  padding: 1em;
+  min-width: 20%;
+  border: 1px solid #ccc;
+  border-radius: 0 9px 9px 0;
+}
 main .message {
   position: absolute;
   left: 50%;
