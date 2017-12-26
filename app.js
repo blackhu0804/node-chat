@@ -6,9 +6,18 @@ var io = require('socket.io')(server);
 var axios = require('axios');
 var APIKEY = 'aac8c08a883a4ba8ac09412ae01182ea';
 io.on('connection', function(socket){
+  socket.on('conn', (name) => {
+    socket.broadcast.emit('conn', name + ' 进入了聊天室 ')      
+  })
+
+  // socket.on('disconnect', function(socket) {
+  //   socket.on('disconn', (name) => {
+  //     io.sockets.emit('disconn', name + ' 离开了聊天室 ')
+  //   })
+  // })
+
   socket.on('chat', function(username, content) { //监听浏览器发送过来的消息
     console.log(username + ' say: ' + content);
-
     if(/小图/.test(content)) {
       axios.post('http://www.tuling123.com/openapi/api', {
         key: APIKEY,
@@ -24,6 +33,9 @@ io.on('connection', function(socket){
     io.sockets.emit('chat from server', `${username} 说：${content}`); //向浏览器发送消息
   })
 })
+
+
+
 server.listen(3000, function() {
   console.log("listen to port: 3000");
 })
