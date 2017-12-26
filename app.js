@@ -4,17 +4,24 @@ var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 var axios = require('axios');
+var users = [];
+
 var APIKEY = 'aac8c08a883a4ba8ac09412ae01182ea';
 io.on('connection', function(socket){
   socket.on('conn', (name) => {
-    socket.broadcast.emit('conn', name + ' 进入了聊天室 ')      
+    socket.broadcast.emit('conn', name + ' 进入了聊天室 ') 
+    socket.nickname = name;
+    users.push(name);
+    console.log('当前在线用户' + users);
   })
 
-  // socket.on('disconnect', function(socket) {
-  //   socket.on('disconn', (name) => {
-  //     io.sockets.emit('disconn', name + ' 离开了聊天室 ')
-  //   })
-  // })
+  socket.on('disconnect', function() {
+    if(socket.nickname != null) {
+      users.splice(users.indexOf(socket.nickname), 1);
+      socket.broadcast.emit('disconn', socket.nickname, users.length);
+      console.log(socket.nickname + '离开了聊天室');
+    }
+  })
 
   socket.on('chat', function(username, content) { //监听浏览器发送过来的消息
     console.log(username + ' say: ' + content);

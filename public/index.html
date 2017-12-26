@@ -42,15 +42,9 @@
       showMsg(name);
     })
 
-    socket.on('disconn', function(name) {
-      console.log(document.querySelector('footer .name').innerText)
-      socket.emit('disconn', document.querySelector('footer .name').innerText )
-      showMsg(name);
+    socket.on('disconn', function(nickName, userCount) {
+      showMsg(nickName + ' 离开了聊天室');
     })
-    // document.querySelector('footer button').onclick = function() {
-    //   socket.emit('chat', document.querySelector('footer .name').innerText, document.querySelector('footer input').value);//向服务器发送消息
-    //   document.querySelector('footer input').value = '';
-    // }
 
     document.querySelector('#submitName').onclick = function() {
       var name = document.querySelector('#name').value
