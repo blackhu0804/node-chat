@@ -101,9 +101,14 @@ main > .UsersList {
 }
 main .UserName>li {
   border-bottom: 1px solid #e0e0e0;
-  padding: .3rem .2rem;
+  padding: .3em 2em;
   display: flex;
   align-items: center;
+  cursor: pointer;
+  transition: .3s;
+}
+main .UserName>li:hover {
+  background-color: #d7a4a457;
 }
 main .message {
   position: absolute;
