@@ -13,11 +13,8 @@ io.on('connection', function(socket){
     users.push(name);
     console.log('当前在线用户' + users);
     socket.broadcast.emit('conn', socket.nickname, users.length) 
-    io.sockets.emit('shuaxin',socket.nickname,users.length);
+    io.sockets.emit('shuaxin',socket.nickname,users.length,users);
   })
-
-  io.sockets.emit('shuaxin',socket.nickname,users.length);
-
 
   socket.on('disconnect', function() {
     if(socket.nickname != null) {

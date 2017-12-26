@@ -8,6 +8,10 @@ html, body {
   height: 100%;
 }
 
+li {
+  list-style: none;
+}
+
 .bgc {
   position: fixed;
   left: 0;
@@ -94,6 +98,12 @@ main > .UsersList {
   min-width: 20%;
   border: 1px solid #ccc;
   border-radius: 0 9px 9px 0;
+}
+main .UserName>li {
+  border-bottom: 1px solid #e0e0e0;
+  padding: .3rem .2rem;
+  display: flex;
+  align-items: center;
 }
 main .message {
   position: absolute;

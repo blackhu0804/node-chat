@@ -22,7 +22,7 @@
     </section>
     <section class="UsersList">
       当前在线用户数目： <span class="userNum"></span>
-      <div>
+      <div class="UserName">
         <p>在线用户列表:</p>
       </div>
     </section>
@@ -38,15 +38,21 @@
   <script>
     var socket = io();
 
-    socket.on('shuaxin', (nickName, userCount) => {
-      console.log(userCount)
+    socket.on('shuaxin', (nickName, userCount, users) => {
+      //console.log(userCount)
       document.querySelector('.userNum').textContent = userCount;
+      $('.UserName').empty();
+      for(var i in users) {
+        $('.UserName').append(`<li>${users[i]}</li>`);    
+      }
+
     })
 
     if(localStorage.name){ //将用户名保存到localStorage
       document.querySelector('footer .name').innerText = localStorage.name
-      document.querySelector('.bgc').style.display = "none";
-      socket.emit('conn', name);
+      // document.querySelector('.bgc').style.display = "none";
+      // socket.emit('conn', name);
+      // console.log(name);
     }
 
     socket.on('chat from server', function(data) {// 监听服务器发送的消息
