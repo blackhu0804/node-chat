@@ -108,7 +108,7 @@ main .UserName>li {
   transition: .3s;
 }
 main .UserName>li:hover {
-  background-color: #d7a4a457;
+  background-color: rgba(241, 173, 173, .4);
 }
 main .message {
   position: absolute;

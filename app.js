@@ -19,7 +19,7 @@ io.on('connection', function(socket){
   socket.on('disconnect', function() {
     if(socket.nickname != null) {
       users.splice(users.indexOf(socket.nickname), 1);
-      socket.broadcast.emit('disconn', socket.nickname, users.length);
+      socket.broadcast.emit('disconn', socket.nickname, users.length,users);
       console.log(socket.nickname + '离开了聊天室');
     }
   })

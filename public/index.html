@@ -64,9 +64,13 @@
       appendSum(userCount);
     })
 
-    socket.on('disconn', function(nickName, userCount) {
+    socket.on('disconn', function(nickName, userCount, users) {
       showMsg(nickName + ' 离开了聊天室');
       appendSum(userCount);
+      $('.UserName').empty(); 
+      for(var i in users) {
+        $('.UserName').append(`<li>${users[i]}</li>`);    
+      }
     })
 
     document.querySelector('#submitName').onclick = function() {
