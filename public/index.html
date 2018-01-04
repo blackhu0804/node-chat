@@ -55,9 +55,9 @@
 
     if(localStorage.name){ //将用户名保存到localStorage
       document.querySelector('footer .name').innerText = localStorage.name
-      document.querySelector('.bgc').style.display = "none";
-      socket.emit('conn', name);
-      console.log(name);
+      // document.querySelector('.bgc').style.display = "none";
+      // socket.emit('conn', name);
+      // console.log(name);
     }
 
     socket.on('chat from server', function(data) {// 监听服务器发送的消息
