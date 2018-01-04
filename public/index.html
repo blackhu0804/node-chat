@@ -16,22 +16,27 @@
     </div>
   </div>
 
-  <main>
-    <section class="ChatContent">
-
-    </section>
-    <section class="UsersList">
-      当前在线用户数目： <span class="userNum"></span>
-      <p>在线用户列表:</p>
-      <div class="UserName">
+  <div class="container">
+    <main>
+      <div class="content">
+        <section class="ChatContent">
+          
+        </section>
+        <footer>
+          <p class="name" >游客</p>
+          <textarea class="message" onkeydown='if(event.keyCode==13){event.preventDefault(); goSubmit();}' type="text" placeholder="要说的话,按Enter发送"></textarea>
+          <!-- <button>发送</button> -->
+        </footer>
       </div>
-    </section>
-  </main>
-  <footer>
-    <span class="name" contenteditable>游客</span>说
-    <input class="message" onkeydown='if(event.keyCode==13){ goSubmit();}' type="text" placeholder="要说的话,按Enter发送">
-    <!-- <button>发送</button> -->
-  </footer>
+      <section class="UsersList">
+        当前在线用户数目： <span class="userNum"></span>
+        <p>在线用户列表:</p>
+        <div class="UserName">
+        </div>
+      </section>
+    </main>
+  </div>
+  
 
   <script src="/socket.io/socket.io.js"></script>
   <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
@@ -50,9 +55,9 @@
 
     if(localStorage.name){ //将用户名保存到localStorage
       document.querySelector('footer .name').innerText = localStorage.name
-      // document.querySelector('.bgc').style.display = "none";
-      // socket.emit('conn', name);
-      // console.log(name);
+      document.querySelector('.bgc').style.display = "none";
+      socket.emit('conn', name);
+      console.log(name);
     }
 
     socket.on('chat from server', function(data) {// 监听服务器发送的消息
@@ -74,7 +79,8 @@
     })
 
     document.querySelector('#submitName').onclick = function() {
-      var name = document.querySelector('#name').value
+      var name = document.querySelector('#name').value;
+      console.log(11);
       if(name === '') {
         alert('请输入你要聊天的昵称！');
       } else {
@@ -84,12 +90,12 @@
       }
     }
 
-    function goSubmit() {
-      if(document.querySelector('footer input').value === '') {
+    function goSubmit(e) {
+      if(document.querySelector('footer .message').value === '') {
         alert('请输入你要发言的内容')
       }else {
-        socket.emit('chat', document.querySelector('footer .name').innerText, document.querySelector('footer input').value);//向服务器发送消息      
-        document.querySelector('footer input').value = '';
+        socket.emit('chat', document.querySelector('footer .name').innerText, document.querySelector('footer .message').value);//向服务器发送消息      
+        document.querySelector('footer .message').value = '';
       }
     }
 
@@ -125,7 +131,7 @@
         msgNode.classList.add('normal')
         msgNode.appendChild(date)
       }, 1000)
-      document.body.querySelector('main > .ChatContent').appendChild(msgNode)
+      document.body.querySelector('main .ChatContent').appendChild(msgNode)
       console.log(data);
     }
 
