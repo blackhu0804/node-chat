@@ -116,8 +116,21 @@ main .content>footer {
   padding: 9px 18px;
   border-radius: 0 0 0 9px;
 }
-main .content>footer>p {
+main .content>footer .tools {
   border-bottom: 1px solid #ccc;
+  display: flex;
+}
+main .tools label {
+  margin-left: 10px;
+  margin-bottom: 2px;
+  background-color: #94aa64;
+  color: #fff;
+  padding: 0 4px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+#fileupload {
+  display: none;
 }
 main .content>footer .message {
   padding-top: 4px;
@@ -160,7 +173,10 @@ main .ChatContent .message {
   font-size: 50px;
   transition: all .4s;
 }
-
+main .ChatContent .uploadPic {
+  width: 100px;
+  height: auto;
+}
 main .message.normal{
   position: static;
   transform: translate(0, 0);

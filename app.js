@@ -40,6 +40,19 @@ io.on('connection', function(socket){
     //socket.broadcast.emit('chat from server', `${username} 说：${content}`); //给除了自己以外的所有人发送信息
     io.sockets.emit('chat from server', `${username} 说：${content}`); //向浏览器发送消息
   })
+
+  /* 
+    接受浏览器发送过来的图片信息，
+    并返回给浏览器
+  */
+  socket.on('fileupload', (obj, nickname) => {
+    if(nickname){
+      obj.name = nickname;
+      io.sockets.emit('msg', { status:"success", info: obj});
+    }else{
+      io.sockets.emit('msg', { status:"failure" });
+    }
+  })
 })
 
 
