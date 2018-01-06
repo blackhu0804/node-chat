@@ -13,7 +13,7 @@
   if(localStorage.name){ //将用户名保存到localStorage
     document.querySelector('footer .name').innerText = localStorage.name
     document.querySelector('.bgc').style.display = "none";
-    socket.emit('conn', name);
+    socket.emit('conn', localStorage.name);
     console.log(name);
   }
 
