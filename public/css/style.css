@@ -194,7 +194,6 @@ main .message>span {
 
 main .message.normal>span {
   display: inline;
-  margin-right: 10px;
   color: #999;
 }
 

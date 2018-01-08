@@ -131,7 +131,7 @@
       var info = result.info;
       var date = document.createTextNode(`···················( ${new Date().toTimeString().substr(0, 8)} )` )
       var $picNode = $("<div class='message normal'></div>");
-      $picNode.append(info.name + "说：" + info.msg);
+      $picNode.append(info.name + " 说：" + info.msg);
       $picNode.append(date);
       $('main .ChatContent').append($picNode);
     }
