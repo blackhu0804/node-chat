@@ -109,6 +109,24 @@ main .ChatContent {
   background-color: #eee;
   overflow-y: auto;
 }
+.ChatContent >.message {
+  border-radius: 4px;
+  padding: 4px;
+  margin-top: 3px;
+  clear: both;
+}
+.ChatContent >.message.normal:nth-child(odd){
+  background-color: #5cb85c;
+}
+.ChatContent >.message.left {
+  float: left;
+}
+.ChatContent >.message.right {
+  float: right;
+}
+.ChatContent >.message.normal:nth-child(even){
+  background-color: #5bc0de;
+}
 main .content>footer {
   height: 25%;
   width: 100%;
@@ -185,7 +203,7 @@ main .message.normal{
   position: static;
   transform: translate(0, 0);
   font-size: 16px;
-  color: #666;
+  color: #fff;
 }
 main .message>span {
   display: none;

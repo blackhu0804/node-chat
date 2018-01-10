@@ -12,9 +12,9 @@
 
   if(localStorage.name){ //将用户名保存到localStorage
     document.querySelector('footer .name').innerText = localStorage.name
-    document.querySelector('.bgc').style.display = "none";
-    socket.emit('conn', localStorage.name);
-    console.log(name);
+    // document.querySelector('.bgc').style.display = "none";
+    // socket.emit('conn', localStorage.name);
+    // console.log(name);
   }
 
   socket.on('chat from server', function(data) {// 监听服务器发送的消息
@@ -78,16 +78,25 @@
 
     var msgNode = document.createElement('div')
     var childSpan = document.createElement('span')
-    var date = document.createTextNode(`···················( ${new Date().toTimeString().substr(0, 8)} )` )
+    var date = document.createTextNode(`·········( ${new Date().toTimeString().substr(0, 8)} )` )
     var childText = document.createTextNode(data)
+
     msgNode.appendChild(childSpan)
     msgNode.appendChild(childText)
     msgNode.classList.add('message')
+
+    if(data.split(' ')[0] == document.querySelector('footer .name').innerText){
+      msgNode.classList.add('right')
+    } else {
+      msgNode.classList.add('left')
+    }
+
     setTimeout(function(){
       msgNode.classList.add('normal')
       msgNode.appendChild(date)
     }, 1000)
     document.body.querySelector('main .ChatContent').appendChild(msgNode)
+    
     console.log(data);
   }
 
@@ -129,10 +138,15 @@
   socket.on('msg', (result) => {
     if(result.status == 'success') {
       var info = result.info;
-      var date = document.createTextNode(`···················( ${new Date().toTimeString().substr(0, 8)} )` )
+      var date = document.createTextNode(`·········( ${new Date().toTimeString().substr(0, 8)} )` )
       var $picNode = $("<div class='message normal'></div>");
       $picNode.append(info.name + " 说：" + info.msg);
       $picNode.append(date);
+      if(info.name == document.querySelector('footer .name').innerText){
+        $picNode.addClass('right')
+      } else {
+        $picNode.addClass('left')
+      }
       $('main .ChatContent').append($picNode);
     }
   })
