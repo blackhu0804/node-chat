@@ -115,16 +115,12 @@ main .ChatContent {
   margin-top: 3px;
   clear: both;
 }
-.ChatContent >.message.normal:nth-child(odd){
+.ChatContent >.message.normal.left {
+  float: left;
   background-color: #5cb85c;
 }
-.ChatContent >.message.left {
-  float: left;
-}
-.ChatContent >.message.right {
+.ChatContent >.message.normal.right {
   float: right;
-}
-.ChatContent >.message.normal:nth-child(even){
   background-color: #5bc0de;
 }
 main .content>footer {
