@@ -58,7 +58,7 @@ io.on('connection', function(socket){
 
 
 server.listen(3000, function() {
-  console.log("listen to port: 3000");
+  console.log("listen to port: http://localhost:3000/");
 })
 
 app.use(express.static('./public'));
