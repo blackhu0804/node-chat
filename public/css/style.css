@@ -119,9 +119,15 @@ main .ChatContent {
   float: left;
   background-color: #5cb85c;
 }
+.ChatContent >.message.normal.left:hover {
+  opacity: .9;
+}
 .ChatContent >.message.normal.right {
   float: right;
   background-color: #5bc0de;
+}
+.ChatContent >.message.normal.right:hover {
+  opacity: .9;
 }
 main .content>footer {
   height: 25%;
